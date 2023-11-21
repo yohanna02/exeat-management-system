@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  database:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD:password
+    restart: always
+    volumes:
+      - ./mysql:/var/lib/mysql
+    container_name: database
+  adminer:
+    image: adminer:4.8.1
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+  app:
+    build: ./
+    container_name: exeat_system_c
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    depends_on:
+      - database
