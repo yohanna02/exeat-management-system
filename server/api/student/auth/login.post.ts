@@ -1,26 +1,26 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import { Admin } from "@prisma/client";
+import { Student } from "@prisma/client";
 import prisma from "~/server/db";
 
-type AdminUser = Omit<Admin, "id">;
+type StudentUser = Pick<Student, "regNo" | "password">;
 const config = useRuntimeConfig();
 export default defineEventHandler(async (event) => {
-    const body = await readBody<AdminUser>(event);
+    const body = await readBody<StudentUser>(event);
 
-    if (!body.email || !body.password) {
+    if (!body.regNo || !body.password) {
         throw createError({
             statusCode: 422,
-            message: "Email and Password is required"
+            message: "Registration Number and Password is required"
         });
     }
 
-    const user = await prisma.admin.findUnique({where: {email: body.email}});
+    const user = await prisma.student.findUnique({where: {regNo: body.regNo}});
     if (!user) {
         throw createError({
             statusCode: 401,
-            message: "Email or password is incorrect"
+            message: "Registration Number or password is incorrect"
         });
     }
     
@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
     if (!theSame) {
         throw createError({
             statusCode: 401,
-            message: "Email or password is incorrect"
+            message: "Registration Number or password is incorrect"
         });
     }
 
@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
 
     setCookie(event, "token", `Bearer ${token}`);
     return {
-        user: "admin",
-        email: body.email
+        user: "student",
+        regNo: body.regNo
     }
 });

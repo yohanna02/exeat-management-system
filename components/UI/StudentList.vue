@@ -3,6 +3,7 @@
     <div class="overflow-x-auto">
       <table
         class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+        v-if="students.length > 0"
       >
         <thead
           class="text-xs text-black uppercase bg-white border-b border-gray-900"
@@ -17,30 +18,27 @@
         <tbody>
           <tr
             class="bg-white border-b border-gray-700 text-gray-900"
+            v-for="student in students"
+            :key="student.id"
           >
             <td class="px-6 py-4">
-              jkjnklnl
+              {{ student.name }}
             </td>
             <th class="px-6 py-4">
-              Apple MacBook Pro 17"
+              {{ student.regNo }}
             </th>
-            <td class="px-6 py-4">Silver</td>
-            <td class="px-6 py-4">Laptop</td>
-          </tr>
-          <tr
-            class="bg-white border-b border-gray-700 text-gray-900"
-          >
-            <td class="px-6 py-4">
-              jkjnklnl
-            </td>
-            <th class="px-6 py-4">
-              Apple MacBook Pro 17"
-            </th>
-            <td class="px-6 py-4">Silver</td>
-            <td class="px-6 py-4">Laptop</td>
+            <td class="px-6 py-4">{{ student.email }}</td>
+            <td class="px-6 py-4">{{ student.parentEmail }}</td>
           </tr>
         </tbody>
       </table>
+      <p class="text-center font-bold text-3xl mt-20" v-else>No Student Registered.</p>
     </div>
   </main>
 </template>
+
+<script lang="ts" setup>
+const { getStudents } = useStore();
+
+const students = computed(() => getStudents());
+</script>

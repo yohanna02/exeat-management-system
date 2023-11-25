@@ -29,14 +29,12 @@ model Admin {
 model AdminNotification {
   id        String   @id @default(uuid())
   message   String
-  read      Boolean  @default(false)
   createdAt DateTime @default(now())
 }
 
 model Notification {
   id        String   @id @default(uuid())
   message   String
-  read      Boolean  @default(false)
   createdAt DateTime @default(now())
   Student   Student? @relation(fields: [studentId], references: [id])
   studentId String?

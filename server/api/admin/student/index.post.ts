@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import { Student } from "@prisma/client";
 import prisma from "~/server/db";
 
@@ -16,16 +17,19 @@ export default defineEventHandler(async (event) => {
     if (student) {
         throw createError({
             statusCode: 422,
-            message: "Student registration number alread used"
+            message: "Student registration number already used"
         });
     }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(body.password, salt);
 
     await prisma.student.create({
         data: {
             email: body.email,
             parentEmail: body.parentEmail,
             name: body.name,
-            password: body.password,
+            password: hashedPassword,
             regNo: body.regNo
         }
     });

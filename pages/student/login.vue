@@ -2,12 +2,12 @@
     <div class="bg-gray-100">
         <div class="min-h-screen flex items-center justify-center">
             <div class="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
-                <h1 class="text-2xl font-semibold text-center text-gray-500 mt-8 mb-6">Admin Login</h1>
+                <h1 class="text-2xl font-semibold text-center text-gray-500 mt-8 mb-6">Student Login</h1>
                 <p class="bg-red-300 p-3 mb-4 rounded-md text-white" v-if="error">{{error}}</p>
                 <form @submit.prevent="login">
                     <div class="mb-6">
-                        <label for="email" class="block mb-2 text-sm text-gray-600">Email</label>
-                        <input v-model="email" type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
+                        <label for="regNo" class="block mb-2 text-sm text-gray-600">Registration Number</label>
+                        <input v-model="regNo" type="text" id="regNo" name="regNo" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
                     </div>
                     <div class="mb-6">
                         <label for="password" class="block mb-2 text-sm text-gray-600">Password</label>
@@ -21,10 +21,10 @@
 </template>
 
 <script lang="ts" setup>
-const admin = useAdmin();
+const student = useStudent();
 const router = useRouter();
 
-const email = ref("");
+const regNo = ref("");
 const password = ref("");
 
 const error = ref(null);
@@ -34,9 +34,9 @@ const login = async () => {
     try {
         loading.value = true;
         error.value = null;
-        await admin.login({email: email.value, password: password.value});
+        await student.login({regNo: regNo.value, password: password.value});
         
-        router.push("/admin");
+        router.push("/student");
     } catch(err: any) {
         loading.value = false;
         error.value = err.data.message;

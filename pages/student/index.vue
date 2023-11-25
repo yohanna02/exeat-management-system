@@ -20,7 +20,7 @@
           <div class="text-gray-100 text-xl">
             <div class="p-2.5 mt-1 flex items-center justify-between">
               <h1 class="font-bold text-gray-200 text-[15px] ml-3">
-                Admin Dashboard
+                Student Dashboard
               </h1>
               <XMarkIcon
                 class="w-10 cursor-pointer ml-28 lg:hidden"
@@ -51,32 +51,13 @@
 
           <Tab as="template" v-slot="{ selected }">
             <div
-              class="w-full p-2.5 mt-3 flex justify-between items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
-              :class="[selected && 'bg-blue-600']"
-            >
-              <span class="flex align-center">
-                <UserIcon class="w-6" />
-                <span class="text-[15px] ml-4 text-gray-200 font-bold"
-                  >Students</span
-                >
-              </span>
-              <span
-                class="center select-none whitespace-nowrap rounded-lg bg-blue-500 py-2 px-3.5 align-baseline font-sans text-xs font-bold uppercase leading-none text-white"
-              >
-                {{ students.length }}
-              </span>
-            </div>
-          </Tab>
-
-          <Tab as="template" v-slot="{selected}">
-            <div
               class="w-full p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
               :class="[selected && 'bg-blue-600']"
             >
               <span class="flex align-center">
                 <PlusIcon class="w-6" />
                 <span class="text-[15px] ml-4 text-gray-200 font-bold"
-                  >Add Student</span
+                  >Request</span
                 >
               </span>
             </div>
@@ -94,29 +75,25 @@
       </TabList>
 
       <TabPanels class="w-full h-full overflow-scroll">
-        <KeepAlive>
-          <NuxtErrorBoundary>
+        <NuxtErrorBoundary>
             <TabPanel>
-              <UiNotifications />
-            </TabPanel>
-            <TabPanel class="w-full h-full">
-              <UiStudentList />
+                <UiNotifications />
             </TabPanel>
             <TabPanel class="h-full">
-              <UiAddStudent />
+                <UiExeatForm />
             </TabPanel>
+
             <template #error="{ error }">
                 <div class="flex flex-col h-full text-center justify-center items-center">
                     <h1 class="text-5xl text-red-400 mb-4">Sorry, something went wrong</h1>
                     <code>{{ error }}</code>
 
                     <button class="text-white bg-gray-900 px-10 py-3 rounded-md mt-4 w-fit" @click="error.value = null">
-                      Go Back
+                        Go Back
                     </button>
                 </div>
-              </template>
-          </NuxtErrorBoundary>
-        </KeepAlive>
+            </template>
+        </NuxtErrorBoundary>
       </TabPanels>
     </div>
   </TabGroup>
@@ -128,17 +105,12 @@ import {
   XMarkIcon,
   ArrowRightIcon,
   HomeIcon,
-  UserIcon,
   PlusIcon,
 } from "@heroicons/vue/24/outline";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
 
 const router = useRouter();
-
-const { getStudents, setStudents } = useStore();
 const open = ref(true);
-
-const students = computed(() => getStudents());
 
 function openSidebar() {
   //   document.querySelector(".sidebar").classList.toggle("hidden");
@@ -152,12 +124,6 @@ const logout = async () => {
 }
 
 definePageMeta({
-  middleware: "admin-auth",
-});
-
-onMounted(async () => {
-  const data = await $fetch("/api/admin/student");
-
-  setStudents(data);
+  middleware: "student-auth",
 });
 </script>
