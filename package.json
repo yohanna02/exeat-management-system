@@ -24,8 +24,8 @@
     "@headlessui/vue": "^1.7.16",
     "@heroicons/vue": "^2.0.18",
     "@prisma/client": "^5.6.0",
-    "@react-email/render": "^0.0.9",
     "bcrypt": "^5.1.1",
+    "javascript-time-ago": "^2.5.9",
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^6.9.7",
     "url-pattern": "^1.0.3"

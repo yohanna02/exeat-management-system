@@ -11,31 +11,32 @@ datasource db {
 }
 
 model Student {
-  id            String         @id @default(uuid())
-  regNo         String         @unique
-  name          String
-  email         String
-  password      String
-  parentEmail   String
-  notifications Notification[]
+  id          String    @id @default(uuid())
+  regNo       String    @unique
+  name        String
+  email       String
+  password    String
+  parentEmail String
+  Request     Request[]
 }
 
 model Admin {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+}
+
+enum REQUEST_STATUS {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model Request {
   id            String         @id @default(uuid())
-  email         String         @unique
-  password      String
-}
-
-model AdminNotification {
-  id        String   @id @default(uuid())
-  message   String
-  createdAt DateTime @default(now())
-}
-
-model Notification {
-  id        String   @id @default(uuid())
-  message   String
-  createdAt DateTime @default(now())
-  Student   Student? @relation(fields: [studentId], references: [id])
-  studentId String?
+  message       String
+  requestStatus REQUEST_STATUS
+  Student       Student?       @relation(fields: [studentId], references: [id])
+  studentId     String?
+  createdAt     DateTime       @default(now())
 }

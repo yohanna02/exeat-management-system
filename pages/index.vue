@@ -26,7 +26,19 @@
         <div
           class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left"
         >
-          <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 v-if="route.query.status === 'yes'" class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            You have accepted the exact request for {{ route.query.name }} ({{ route.query.regNo }}).
+          </h2>
+          <h2 v-else-if="route.query.status === 'no'" class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            You have rejected the exact request for {{ route.query.name }} ({{ route.query.regNo }}).
+          </h2>
+          <h2 v-else-if="route.query.status === 'error'" class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Invalid Student
+          </h2>
+          <h2 v-else-if="route.query.status === 'not_pending'" class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Request already accepted/rejected
+          </h2>
+          <h2 v-else class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Boost your productivity.<br />Start using our app today.
           </h2>
           <div
@@ -55,3 +67,7 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+const route = useRoute();
+</script>

@@ -1,0 +1,6 @@
+
+export enum REQUEST_TYPE {
+    MAKE_REQUEST,
+    REQUEST_ACCECPTED,
+    REQUEST_REJECTED
+};

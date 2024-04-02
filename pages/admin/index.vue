@@ -97,7 +97,7 @@
         <KeepAlive>
           <NuxtErrorBoundary>
             <TabPanel>
-              <UiNotifications />
+              <UiNotifications notificationType="admin" />
             </TabPanel>
             <TabPanel class="w-full h-full">
               <UiStudentList />

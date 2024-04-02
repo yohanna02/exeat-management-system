@@ -77,7 +77,7 @@
       <TabPanels class="w-full h-full overflow-scroll">
         <NuxtErrorBoundary>
             <TabPanel>
-                <UiNotifications />
+                <UiNotifications notificationType="student" />
             </TabPanel>
             <TabPanel class="h-full">
                 <UiExeatForm />

@@ -5,7 +5,12 @@ export default defineNuxtConfig({
   ],
   devtools: { enabled: true },
   runtimeConfig: {
-    jwtSecret: ""
+    jwtSecret: "",
+    contactMailHost: "",
+    contactMailPass: "",
+    contactMailUser: "",
+    contactMailName: "",
+    contactMailPort: ""
   },
   sourcemap: true
 })
