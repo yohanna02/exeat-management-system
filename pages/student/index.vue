@@ -42,9 +42,10 @@
                 >
               </span>
               <span
+                v-if="requestNo > 0"
                 class="center select-none whitespace-nowrap rounded-lg bg-blue-500 py-2 px-3.5 align-baseline font-sans text-xs font-bold uppercase leading-none text-white"
               >
-                3
+                {{ requestNo }}
               </span>
             </div>
           </Tab>
@@ -77,7 +78,7 @@
       <TabPanels class="w-full h-full overflow-scroll">
         <NuxtErrorBoundary>
             <TabPanel>
-                <UiNotifications notificationType="student" />
+                <UiRequest />
             </TabPanel>
             <TabPanel class="h-full">
                 <UiExeatForm />
@@ -108,9 +109,13 @@ import {
   PlusIcon,
 } from "@heroicons/vue/24/outline";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
+import { REQUEST_STATUS } from "@prisma/client";
 
 const router = useRouter();
 const open = ref(true);
+
+const { getRequests } = useStore();
+const requestNo = computed(() => getRequests().filter(request => request.requestStatus === REQUEST_STATUS.PENDING).length);
 
 function openSidebar() {
   //   document.querySelector(".sidebar").classList.toggle("hidden");
