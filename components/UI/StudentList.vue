@@ -11,6 +11,7 @@
           <tr>
             <th scope="col" class="p-4">Full Name</th>
             <th scope="col" class="px-6 py-3">Registration No</th>
+            <th scope="col" class="px-6 py-3">Request remaining</th>
             <th scope="col" class="px-6 py-3">Email</th>
             <th scope="col" class="px-6 py-3">Parent Email</th>
           </tr>
@@ -27,18 +28,39 @@
             <th class="px-6 py-4">
               {{ student.regNo }}
             </th>
+            <td class="px-6 py-4">{{ student.requestNoRemaining }}</td>
             <td class="px-6 py-4">{{ student.email }}</td>
             <td class="px-6 py-4">{{ student.parentEmail }}</td>
+            <td class="px-6 py-4">
+              <button
+                @click="resetRequest($event, student.id)"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Reset
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
-      <p class="text-center font-bold text-3xl mt-20" v-else>No Student Registered.</p>
+      <p class="text-center font-bold text-3xl mt-20" v-else>
+        No Student Registered.
+      </p>
     </div>
   </main>
 </template>
 
 <script lang="ts" setup>
-const { getStudents } = useStore();
+const { getStudents, setStudents } = useStore();
 
 const students = computed(() => getStudents());
+
+async function resetRequest(e: any, studentId: string) {
+  e.target.textContent = "Resetting...";
+  const data = await $fetch(`/api/request/reset?studentId=${studentId}`);
+  const studentData = await $fetch("/api/admin/student");
+
+  setStudents(studentData);
+  e.target.textContent = "Reset";
+  alert(data.message);
+}
 </script>

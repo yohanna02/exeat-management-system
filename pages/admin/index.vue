@@ -153,7 +153,7 @@ function openSidebar() {
 const logout = async () => {
   await $fetch("/api/logout");
 
-  router.push("/admin/login");
+  router.replace("/admin/login");
 }
 
 definePageMeta({

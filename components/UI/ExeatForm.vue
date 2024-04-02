@@ -11,6 +11,7 @@
             <button :disabled="loading" type="submit" class="w-full bg-gradient-to-r from-gray-600 to-gray-800 text-white py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 mt-4 mb-6">
                 {{loading ? "Loading..." : "Make Request"}}
             </button>
+            <p class="text-center text-red-500 uppercase">you have {{ user.requestRemaining }} request remaining.</p>
         </form>
     </main>
 </template>
@@ -20,6 +21,9 @@
 const loading = ref(false);
 const reason = ref("");
 
+const { getUser, setUser } = useStudent();
+const user = getUser();
+
 async function makeExeatRequest() {
     loading.value = true;
     const data = await $fetch<{message: string}>("/api/request", {
@@ -28,6 +32,9 @@ async function makeExeatRequest() {
     });
 
     alert(data.message);
+    // if (user.requestRemaining > 0) {
+        setUser({ ...user, requestRemaining: user.requestRemaining - 1 });
+    // }
     loading.value = false;
     reason.value = "";
 }

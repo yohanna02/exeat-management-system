@@ -39,6 +39,7 @@ export default defineEventHandler(async (event) => {
     setCookie(event, "token", `Bearer ${token}`);
     return {
         user: "student",
-        regNo: body.regNo
+        regNo: body.regNo,
+        requestRemaining: user.requestNoRemaining
     }
 });

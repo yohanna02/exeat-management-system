@@ -3,6 +3,7 @@
         <div class="min-h-screen flex items-center justify-center">
             <div class="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
                 <h1 class="text-2xl font-semibold text-center text-gray-500 mt-8 mb-6">Student Login</h1>
+                <NuxtLink to="/" class="underline mb-5 block">Home</NuxtLink>
                 <p class="bg-red-300 p-3 mb-4 rounded-md text-white" v-if="error">{{error}}</p>
                 <form @submit.prevent="login">
                     <div class="mb-6">

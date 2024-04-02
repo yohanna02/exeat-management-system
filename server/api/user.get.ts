@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
         
         const student = await prisma.student.findUnique({where: { id: decoded.id }});
         if (student) {
-            return {user: "student", email: student.email};
+            return {user: "student", email: student.email, requestRemaining: student.requestNoRemaining};
         }
 
         return {user: null, email: null};

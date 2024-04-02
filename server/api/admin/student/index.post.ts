@@ -30,7 +30,8 @@ export default defineEventHandler(async (event) => {
             parentEmail: body.parentEmail,
             name: body.name,
             password: hashedPassword,
-            regNo: body.regNo
+            regNo: body.regNo,
+            requestNoRemaining: 3
         }
     });
 

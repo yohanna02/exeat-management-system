@@ -26,38 +26,59 @@
         <div
           class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left"
         >
-          <h2 v-if="route.query.status === 'yes'" class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            You have accepted the exact request for {{ route.query.name }} ({{ route.query.regNo }}).
+          <h2
+            v-if="route.query.status === 'yes'"
+            class="text-3xl font-bold tracking-tight text-white sm:text-4xl"
+          >
+            You have accepted the exact request for {{ route.query.name }} ({{
+              route.query.regNo
+            }}).
           </h2>
-          <h2 v-else-if="route.query.status === 'no'" class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            You have rejected the exact request for {{ route.query.name }} ({{ route.query.regNo }}).
+          <h2
+            v-else-if="route.query.status === 'no'"
+            class="text-3xl font-bold tracking-tight text-white sm:text-4xl"
+          >
+            You have rejected the exact request for {{ route.query.name }} ({{
+              route.query.regNo
+            }}).
           </h2>
-          <h2 v-else-if="route.query.status === 'error'" class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2
+            v-else-if="route.query.status === 'error'"
+            class="text-3xl font-bold tracking-tight text-white sm:text-4xl"
+          >
             Invalid Student
           </h2>
-          <h2 v-else-if="route.query.status === 'not_pending'" class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2
+            v-else-if="route.query.status === 'not_pending'"
+            class="text-3xl font-bold tracking-tight text-white sm:text-4xl"
+          >
             Request already accepted/rejected
           </h2>
-          <h2 v-else class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Boost your productivity.<br />Start using our app today.
+          <h2
+            v-else
+            class="text-3xl font-bold tracking-tight text-white sm:text-4xl"
+          >
+            Welcome to the Exeat Management System
           </h2>
           <div
             class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start"
           >
-            <a
-              href="#"
+            <NuxtLink
+              to="/student/login"
               class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >Get started</a
+              >Student Login</NuxtLink
             >
-            <a href="#" class="text-sm font-semibold leading-6 text-white"
-              >Learn more <span aria-hidden="true">→</span></a
+            <NuxtLink
+              to="/admin/login"
+              class="text-sm font-semibold leading-6 text-white"
+              >Admin Login <span aria-hidden="true">→</span></NuxtLink
             >
           </div>
         </div>
         <div class="relative mt-16 h-80 lg:mt-8">
           <img
             class="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10"
-            src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"
+            src="/image.webp"
             alt="App screenshot"
             width="1824"
             height="1080"

@@ -7,7 +7,8 @@ export default defineEventHandler(async (event) => {
             parentEmail: true,
             id: true,
             name: true,
-            regNo: true
+            regNo: true,
+            requestNoRemaining: true
         }
     });
 

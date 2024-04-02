@@ -11,13 +11,14 @@ datasource db {
 }
 
 model Student {
-  id          String    @id @default(uuid())
-  regNo       String    @unique
-  name        String
-  email       String
-  password    String
-  parentEmail String
-  Request     Request[]
+  id                 String    @id @default(uuid())
+  regNo              String    @unique
+  name               String
+  email              String
+  password           String
+  parentEmail        String
+  requestNoRemaining Int
+  Request            Request[]
 }
 
 model Admin {

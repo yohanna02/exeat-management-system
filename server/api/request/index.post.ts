@@ -6,7 +6,6 @@ import { REQUEST_TYPE } from "~/interface";
 
 export default defineEventHandler(async (event) => {
     const token = getCookie(event, "token");
-    const config = useRuntimeConfig();
 
     if (!token) {
         throw createError({
@@ -39,17 +38,22 @@ export default defineEventHandler(async (event) => {
         if (error instanceof Error && error.message === "auth_error") {
             throw createError({
                 statusCode: 401,
-                message: "user not logged in"
+                statusText: "user not logged in"
             });
         } else if (error instanceof Error && error.message === "reason_error") {
             throw createError({
                 statusCode: 422,
-                message: "Reason field is required"
+                statusText: "Reason field is required"
+            });
+        } else if (error instanceof Error && error.message === "request_no_remaining_error") {
+            throw createError({
+                statusCode: 422,
+                statusText: "You have reached the maximum number of requests"
             });
         } else {
             throw createError({
                 statusCode: 500,
-                message: "Internal server error"
+                statusText: "Internal server error"
             });
         }
     }
@@ -106,6 +110,17 @@ function makeRequest(student: Student, body: { reason: string }) {
                 studentId: student.id,
                 message: body.reason,
                 requestStatus: REQUEST_STATUS.PENDING
+            }
+        });
+        if (student.requestNoRemaining === 0) {
+            throw Error("request_no_remaining_error");
+        }
+        await tx.student.update({
+            where: { id: student.id },
+            data: {
+                requestNoRemaining: {
+                    decrement: 1
+                }
             }
         });
         await sendMail(REQUEST_TYPE.MAKE_REQUEST, student, request.id, body.reason);
