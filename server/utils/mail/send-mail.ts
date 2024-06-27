@@ -9,7 +9,7 @@ const mailTransport = () => {
     return nodemailer.createTransport({
         host: config.contactMailHost,
         port: parseInt(config.contactMailPort),
-        secure: false,
+        secure: true,
         auth: {
             user: config.contactMailUser,
             pass: config.contactMailPass

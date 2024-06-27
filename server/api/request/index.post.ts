@@ -35,6 +35,7 @@ export default defineEventHandler(async (event) => {
             message: "Successfully made an exeact request."
         }
     } catch (error: any) {
+        console.log(error);
         if (error instanceof Error && error.message === "auth_error") {
             throw createError({
                 statusCode: 401,
